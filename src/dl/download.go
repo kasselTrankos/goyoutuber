@@ -61,15 +61,18 @@ func main(){
 
 	streamMap, ok := answer["url_encoded_fmt_stream_map"]
 
-	// fmt.Println(toJSON(answer))
+	// fmt.Println(toJSON(answeryout))
 	if !ok {
 		fmt.Println("no stream map found in the server's answer")
 
 		// return err
 	}else{
+		//d1 := []byte(string(streamMap))
+		errf := ioutil.WriteFile("dat1", bytes.NewBufferString(streamMap), 0644)
 		fmt.Println(" vamos a por el stream que no se ni lo qure es aun")
 		var streams []stream
 		streamsList := strings.Split(streamMap[0], ",")
+
 		for streamPos, streamRaw := range streamsList {
 			streamQry, err := url.ParseQuery(streamRaw)
 			if err != nil {
@@ -80,7 +83,7 @@ func main(){
 			if _, exist := streamQry["sig"]; exist {
 				sig = streamQry["sig"][0]
 			}
-
+			fmt.Printf(" signature %s", sig)
 			streams = append(streams, stream{
 				"quality": streamQry["quality"][0],
 				"type":    streamQry["type"][0],
