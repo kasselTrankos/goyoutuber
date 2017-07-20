@@ -68,7 +68,8 @@ func main(){
 		// return err
 	}else{
 		//d1 := []byte(string(streamMap))
-		errf := ioutil.WriteFile("dat1", bytes.NewBufferString(streamMap), 0644)
+		str := strings.Join(streamMap," ")
+		errf := ioutil.WriteFile("dat1", str, 0644)
 		fmt.Println(" vamos a por el stream que no se ni lo qure es aun")
 		var streams []stream
 		streamsList := strings.Split(streamMap[0], ",")
